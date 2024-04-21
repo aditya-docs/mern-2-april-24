@@ -1,0 +1,56 @@
+GET http://localhost:8082/
+###
+GET http://localhost:8082/currencies
+###
+GET http://localhost:8082/users
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/search?gender=male&age=49
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/search
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/search?age=-5
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/search?gender=dragon&age=49
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/search?gender=male&age=49
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/6607d086-7159-4c26-beb1-280c9f9cbf35
+Authorization: LetMeIn
+###
+GET http://localhost:8082/currencies
+Authorization: LetMeIn
+###
+POST http://localhost:8082/blogs/new
+Authorization: LetMeIn
+Content-Type: application/json
+
+{
+    "title": "civil blog"
+}
+
+###
+GET http://localhost:8082/blogs
+Authorization: LetMeIn
+
+###
+DELETE http://localhost:8082/blogs/6625043aacccb41f9e1ecc8a
+Authorization: LetMeIn
+
+###
+PUT http://localhost:8082/blogs/662505c4c1a4a001b5736dd9
+Authorization: LetMeIn
+Content-Type: application/json
+
+{
+    "title": "culinary blog",
+    "author": ["sanjeev kapoor", "tarla dalal"],
+    "content": "this is a very interesting blog",
+    "publishedAt": null,
+    "version": 3
+}

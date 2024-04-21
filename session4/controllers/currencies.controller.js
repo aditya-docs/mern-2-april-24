@@ -1,20 +1,6 @@
 const currenciesJSON = require("../currencies.json");
-const password = process.env.ROUTE_PASSWORD
-
-const verifyAuth = (authorization) => { 
-  if (!authorization) {
-    return false;
-  }
-  if (authorization !== password) {
-    return false;
-  }
-  return true;
-}
 
 const getCurrencies = (req, res) => {
-  if(verifyAuth(req.headers.authorization)){
-    return res.status(403).json({message: "Unauthorized Request"})
-  }
   const { min_value } = req.query;
   min_value
     ? res.json(
