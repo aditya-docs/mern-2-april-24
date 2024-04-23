@@ -1,0 +1,69 @@
+GET http://localhost:8082/
+###
+GET http://localhost:8082/currencies
+###
+GET http://localhost:8082/users
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/search?gender=male&age=49
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/search
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/search?age=-5
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/search?gender=dragon&age=49
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/search?gender=male&age=49
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/6607d086-7159-4c26-beb1-280c9f9cbf35
+Authorization: LetMeIn
+###
+GET http://localhost:8082/currencies
+Authorization: LetMeIn
+###
+POST http://localhost:8082/blogs/new
+Authorization: LetMeIn
+Content-Type: application/json
+
+{
+    "title": "study blog",
+    "author": [{
+        "fullName": "himanshu",
+        "twitterHandle": "@him",
+        "email": "himanshu@yahoo.com",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Chetan_bhagat_1.jpg/1200px-Chetan_bhagat_1.jpg"
+    }],
+    "content": "this is a very interesting blog",
+    "publishedAt": null,
+    "version": 1
+}
+
+###
+GET http://localhost:8082/blogs
+Authorization: LetMeIn
+
+###
+DELETE http://localhost:8082/blogs/6625064a8778bd14426539d3
+Authorization: LetMeIn
+
+###
+PUT http://localhost:8082/blogs/66250661f271620241719542
+Authorization: LetMeIn
+Content-Type: application/json
+
+{
+    "title": "technology blog",
+    "author": [],
+    "content": "this is a very interesting blog",
+    "publishedAt": null,
+    "version": 1
+}
+
+###
+GET http://localhost:8082/blogs/search?title=crio
+Authorization: LetMeIn
