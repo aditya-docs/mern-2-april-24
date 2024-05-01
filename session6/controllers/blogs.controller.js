@@ -1,17 +1,12 @@
 const crypto = require("crypto");
-const {
-  findAllBlogs,
-  createBlogDocument,
-  deleteBlogDocumentById,
-  replaceBlogDocumentById,
-  getBlogDocumentById,
-  searchBlogDocuments,
-} = require("../services/blogs.service");
+const BlogService = require("../services/blogs.service");
+
+const BlogServiceInstance = new BlogService();
 
 const getBlogs = async (req, res) => {
   const requestId = crypto.randomUUID();
   try {
-    const response = await findAllBlogs();
+    const response = await BlogServiceInstance.findAllBlogs();
     res.status(200).json(
       response.map((obj) => {
         const { title, author, content, publishedAt, _id: id } = obj;
@@ -28,7 +23,9 @@ const getBlogs = async (req, res) => {
 
 const getBlogById = async (req, res) => {
   try {
-    const response = await getBlogDocumentById(req.params.id);
+    const response = await BlogServiceInstance.getBlogDocumentById(
+      req.params.id
+    );
     const { title, author, content, publishedAt, _id: id } = response;
     res.status(200).json({ title, author, content, publishedAt, id });
   } catch (error) {
@@ -39,7 +36,7 @@ const getBlogById = async (req, res) => {
 const createNewBlog = async (req, res) => {
   try {
     // do line 6
-    const newBlogDoc = await createBlogDocument(req.body);
+    const newBlogDoc = await BlogServiceInstance.createBlogDocument(req.body);
 
     // or do line 9 and 10
 
@@ -69,7 +66,7 @@ const createNewBlog = async (req, res) => {
 
 const deleteBlogById = async (req, res) => {
   try {
-    await deleteBlogDocumentById(req.params.id);
+    await BlogServiceInstance.deleteBlogDocumentById(req.params.id);
     //await Blogs.findByIdAndDelete({_id: req.params.id});
     res.sendStatus(204);
   } catch (error) {
@@ -80,13 +77,16 @@ const deleteBlogById = async (req, res) => {
 const replaceBlogById = async (req, res) => {
   let { title, author, content, publishedAt, version: __v } = req.body;
   try {
-    const response = await replaceBlogDocumentById(req.params.id, {
-      title,
-      author,
-      content,
-      publishedAt,
-      __v,
-    });
+    const response = await BlogServiceInstance.replaceBlogDocumentById(
+      req.params.id,
+      {
+        title,
+        author,
+        content,
+        publishedAt,
+        __v,
+      }
+    );
     res
       .status(200)
       .json({ title, author, content, publishedAt, id: response._id });
@@ -98,7 +98,10 @@ const replaceBlogById = async (req, res) => {
 const searchBlogs = async (req, res) => {
   const { title, author } = req.query;
   const titleRegex = new RegExp(title);
-  const result = await searchBlogDocuments(titleRegex, author);
+  const result = await BlogServiceInstance.searchBlogDocuments(
+    titleRegex,
+    author
+  );
   res.status(200).json(
     result.map(({ title, author, content, publishedAt, _id: id }) => ({
       title,
